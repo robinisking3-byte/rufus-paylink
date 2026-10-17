@@ -1,0 +1,19 @@
+{
+  "orderId": "ORD-312245-M1NL",
+  "uniqueNumber": "INV-194567",
+  "invoiceNumber": "INV-194567",
+  "customerName": "Aarav Sharma",
+  "customerNote": "Invoice #INV-194567 — FamPay Order Checkout",
+  "amount": 250,
+  "currency": "INR",
+  "receiverUpiId": "robintyagi@fam",
+  "upiUri": "upi://pay?pa=robintyagi%40fam&pn=Rufus+Gateway&am=250.00&cu=INR&tn=Invoice+%23INV-194567+%E2%80%94+FamPay+Order+Checkout+%28ORD-312245-M1NL%29&tr=ORD-312245-M1NL",
+  "verified": false,
+  "status": "pending",
+  "utrNumber": "",
+  "verifiedAtMs": 0,
+  "verifiedAtIso": null,
+  "createdAtMs": 1792260312245,
+  "expiresAtMs": 1792260912245,
+  "updatedAtMs": 1792260312291
+}
