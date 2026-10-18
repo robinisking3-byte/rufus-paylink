@@ -1,0 +1,19 @@
+{
+  "orderId": "ORD-620048-ENH8",
+  "uniqueNumber": "EXT-1792332618884-1038",
+  "invoiceNumber": "EXT-1792332618884-1038",
+  "customerName": "Robin",
+  "customerNote": "Order EXT-1792332618884-1038",
+  "amount": 1,
+  "currency": "INR",
+  "receiverUpiId": "robintyagi@fam",
+  "upiUri": "upi://pay?pa=robintyagi%40fam&pn=Rufus+Gateway&am=1.00&cu=INR&tn=Order+EXT-1792332618884-1038+%28ORD-620048-ENH8%29&tr=ORD-620048-ENH8",
+  "verified": false,
+  "status": "pending",
+  "utrNumber": "",
+  "verifiedAtMs": 0,
+  "verifiedAtIso": null,
+  "createdAtMs": 1792332620048,
+  "expiresAtMs": 1792333220048,
+  "updatedAtMs": 1792332620050
+}
