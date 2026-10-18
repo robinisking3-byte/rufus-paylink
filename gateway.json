@@ -1,0 +1,9 @@
+{
+  "gateway": "Rufus Gateway",
+  "receiverUpiId": "robintyagi@fam",
+  "apiBaseUrl": "https://renaissance-templates-barcelona-ripe.trycloudflare.com",
+  "permanentPortalUrl": "https://robinisking3-byte.github.io/rufus-paylink",
+  "permanentDiscoveryUrl": "https://api.github.com/repos/robinisking3-byte/rufus-paylink/contents/gateway.json",
+  "updatedAtMs": 1792330881795,
+  "updatedAtIso": "2026-10-18T13:41:21.795Z"
+}
