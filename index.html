@@ -380,7 +380,24 @@
         document.getElementById('status-headline').textContent = 'Checking live bank status...';
       }
 
-      // 1. If we have the live Cloudflare Tunnel origin, trigger real-time verification first
+      // 0. If running on Vercel (.vercel.app) or custom domain with Serverless API, call same-origin /api/v1/payments/verify
+      if (!window.location.hostname.endsWith('github.io')) {
+        try {
+          const sameOriginRes = await fetch(
+            window.location.origin + '/api/v1/payments/verify/' + encodeURIComponent(uniqueId) + '?checkInbox=' + (isManual ? 'true' : 'false'),
+            { cache: 'no-store' }
+          );
+          if (sameOriginRes.ok) {
+            const data = await sameOriginRes.json();
+            if (data && (data.status === 'verified' || data.verified === true)) {
+              showVerifiedState(data.utrNumber || 'VERIFIED', data.verifiedAtMs);
+              return;
+            }
+          }
+        } catch (e) {}
+      }
+
+      // 1. If we have the live Cloudflare Tunnel / Vercel origin, trigger real-time verification
       if (discoveredApiOrigin) {
         try {
           const apiRes = await fetch(
