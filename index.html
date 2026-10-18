@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Rufus Gateway — Instant UPI Checkout</title>
-  <meta name="description" content="Secure Instant UPI Payment Link powered by Rufus Gateway" />
+  <title>Rufus Gateway — Permanent Public UPI Checkout & Gateway Hub</title>
+  <meta name="description" content="Secure 24/7 Automated UPI Payment Link & Public Gateway Portal powered by Rufus Gateway" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,19 +21,66 @@
     .font-mono {
       font-family: 'JetBrains Mono', monospace;
     }
-    @keyframes pulse-ring {
-      0% { transform: scale(0.95); opacity: 0.7; }
-      50% { transform: scale(1.05); opacity: 0.3; }
-      100% { transform: scale(0.95); opacity: 0.7; }
-    }
-    .animate-pulse-slow {
-      animation: pulse-ring 2.5s infinite ease-in-out;
-    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 bg-[#05070B] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-950/30 via-[#05070B] to-[#05070B]">
 
-  <!-- Main Checkout Container -->
+  <!-- ===================================================================== -->
+  <!-- MODE A: PERMANENT GATEWAY HUB (When visited without ?id= payment param) -->
+  <!-- ===================================================================== -->
+  <div id="gateway-hub-card" class="hidden w-full max-w-lg rounded-3xl bg-[#0D111A] border border-slate-800/90 shadow-[0_24px_80px_rgba(0,0,0,0.85)] overflow-hidden">
+    <div class="px-6 py-5 bg-gradient-to-r from-indigo-950/80 via-slate-900/90 to-emerald-950/60 border-b border-slate-800/80 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center">
+          <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-base font-bold text-white">Rufus Gateway</h1>
+            <span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 rounded-md">Permanent Public URL</span>
+          </div>
+          <p class="text-xs text-slate-400">24/7 Automated UPI Payment Gateway & Public Verification Hub</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-6 space-y-5">
+      <div class="rounded-2xl bg-slate-950/90 border border-slate-800/90 p-4 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Permanent Public Paylink & Hub URL</span>
+          <span class="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-[10px] font-mono text-emerald-300">ONLINE 24/7</span>
+        </div>
+        <p class="text-xs font-mono text-indigo-300 break-all bg-slate-900/90 px-3 py-2 rounded-xl border border-slate-800">https://robinisking3-byte.github.io/rufus-paylink</p>
+      </div>
+
+      <div class="rounded-2xl bg-slate-950/90 border border-slate-800/90 p-4 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Active Public REST API & Webhook Tunnel</span>
+          <span id="hub-tunnel-badge" class="px-2 py-0.5 rounded bg-indigo-500/10 border border-indigo-500/30 text-[10px] font-mono text-indigo-300">Discovering...</span>
+        </div>
+        <p id="hub-api-url" class="text-xs font-mono text-emerald-300 break-all bg-slate-900/90 px-3 py-2 rounded-xl border border-slate-800">Connecting to live Rufus Gateway tunnel...</p>
+        <div class="flex flex-wrap gap-2 pt-1">
+          <a id="hub-open-app-btn" href="#" class="flex-1 py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs uppercase tracking-wider text-center transition shadow-lg shadow-indigo-600/25">
+            Open Live Rufus Gateway App
+          </a>
+          <button type="button" onclick="copyHubApiUrl()" id="hub-copy-btn" class="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs border border-slate-700 transition">
+            Copy API URL
+          </button>
+        </div>
+      </div>
+
+      <div class="rounded-xl bg-slate-900/50 border border-slate-800/70 p-3.5 text-xs text-slate-400 space-y-1">
+        <p class="font-semibold text-slate-300">Quick Paylink Test</p>
+        <p>Append <span class="font-mono text-indigo-300">?id=INV-1001&amp;am=499&amp;cn=Demo+Customer</span> to this URL to launch an instant customer checkout session.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODE B: CUSTOMER UPI CHECKOUT CARD (When visited with ?id=...)        -->
+  <!-- ===================================================================== -->
   <div id="checkout-card" class="w-full max-w-md rounded-3xl bg-[#0D111A] border border-slate-800/90 shadow-[0_24px_80px_rgba(0,0,0,0.85)] overflow-hidden transition-all duration-300">
     
     <!-- Top Brand Header -->
@@ -134,7 +181,7 @@
           </div>
         </div>
         <button id="manual-check-btn" type="button" onclick="checkPaymentStatusNow(true)" class="px-3 py-1.5 rounded-lg bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-500/30 text-indigo-300 text-xs font-semibold transition shrink-0">
-          Refresh
+          I Have Paid
         </button>
       </div>
     </div>
@@ -200,14 +247,50 @@
     let customerNote = (params.get('tn') || ('Invoice #' + (uniqueId || orderId))).trim();
     let expiresAtMs = parseInt(params.get('exp') || '0', 10);
     const redirectUrl = params.get('redirect') || '';
-    const apiOrigin = params.get('api') || '';
+    let discoveredApiOrigin = (params.get('api') || '').trim();
+    const openAppMode = params.get('app') === '1' || params.get('open') === 'app';
 
     if (!expiresAtMs || isNaN(expiresAtMs)) {
       expiresAtMs = Date.now() + 600000;
     }
 
     let currentStatus = 'pending';
-    let verifiedUtr = '';
+
+    async function discoverLiveGatewayEndpoint() {
+      try {
+        const res = await fetch(
+          'https://api.github.com/repos/robinisking3-byte/rufus-paylink/contents/gateway.json?t=' + Date.now(),
+          { headers: { 'Accept': 'application/vnd.github.raw+json' }, cache: 'no-store' }
+        );
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.apiBaseUrl) {
+            discoveredApiOrigin = String(data.apiBaseUrl).replace(/\/$/, '');
+            const hubUrlEl = document.getElementById('hub-api-url');
+            const hubBtnEl = document.getElementById('hub-open-app-btn');
+            const hubBadgeEl = document.getElementById('hub-tunnel-badge');
+            if (hubUrlEl) hubUrlEl.textContent = discoveredApiOrigin;
+            if (hubBtnEl) hubBtnEl.href = discoveredApiOrigin;
+            if (hubBadgeEl) {
+              hubBadgeEl.textContent = 'LIVE TUNNEL ACTIVE';
+              hubBadgeEl.className = 'px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-[10px] font-mono text-emerald-300';
+            }
+            if (openAppMode && !uniqueId) {
+              window.location.href = discoveredApiOrigin;
+            }
+          }
+        }
+      } catch (e) {}
+    }
+
+    function copyHubApiUrl() {
+      const urlToCopy = discoveredApiOrigin || 'https://robinisking3-byte.github.io/rufus-paylink';
+      navigator.clipboard.writeText(urlToCopy).then(() => {
+        const btn = document.getElementById('hub-copy-btn');
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Copy API URL'; }, 1800);
+      });
+    }
 
     function buildUpiDeepLink(pa, am, tn, tr) {
       const cleanAm = Number(am || 0).toFixed(2);
@@ -297,7 +380,24 @@
         document.getElementById('status-headline').textContent = 'Checking live bank status...';
       }
 
-      // 1. Check Public GitHub Cloud Order Ledger (Zero login / 100% public)
+      // 1. If we have the live Cloudflare Tunnel origin, trigger real-time verification first
+      if (discoveredApiOrigin) {
+        try {
+          const apiRes = await fetch(
+            discoveredApiOrigin + '/api/v1/payments/verify/' + encodeURIComponent(uniqueId) + '?checkInbox=' + (isManual ? 'true' : 'false'),
+            { cache: 'no-store' }
+          );
+          if (apiRes.ok) {
+            const data = await apiRes.json();
+            if (data && (data.status === 'verified' || data.verified === true)) {
+              showVerifiedState(data.utrNumber || 'VERIFIED', data.verifiedAtMs);
+              return;
+            }
+          }
+        } catch (e) {}
+      }
+
+      // 2. Check Public GitHub Cloud Order Ledger (Zero login / 100% permanent public CDN)
       const identifiers = [uniqueId, orderId].filter(Boolean);
       for (const id of identifiers) {
         try {
@@ -323,23 +423,9 @@
         } catch (e) {}
       }
 
-      // 2. Fallback: Check API origin if accessible
-      if (apiOrigin) {
-        try {
-          const apiRes = await fetch(apiOrigin.replace(/\/$/, '') + '/api/v1/payments/verify/' + encodeURIComponent(uniqueId) + '?refresh=' + (isManual ? 'true' : 'false'));
-          if (apiRes.ok) {
-            const data = await apiRes.json();
-            if (data && (data.status === 'verified' || data.verified === true)) {
-              showVerifiedState(data.utrNumber || 'VERIFIED', data.verifiedAtMs);
-              return;
-            }
-          }
-        } catch (e) {}
-      }
-
       if (isManual && currentStatus !== 'verified') {
-        document.getElementById('status-headline').textContent = 'Payment Not Found Yet';
-        document.getElementById('status-subtext').textContent = 'Still listening automatically every 3 seconds...';
+        document.getElementById('status-headline').textContent = 'Payment Not Found';
+        document.getElementById('status-subtext').textContent = 'Listening automatically every 3 seconds...';
         setTimeout(() => {
           if (currentStatus === 'pending') {
             document.getElementById('status-headline').textContent = 'Listening for Bank Confirmation...';
@@ -348,27 +434,38 @@
       }
     }
 
-    renderOrderDetails();
-    checkPaymentStatusNow(false);
-
-    setInterval(() => {
-      if (currentStatus !== 'pending') return;
-      const remaining = expiresAtMs - Date.now();
-      if (remaining <= 0) {
-        showExpiredState();
-        return;
-      }
-      const mins = Math.floor(remaining / 60000);
-      const secs = Math.floor((remaining % 60000) / 1000);
-      document.getElementById('countdown-text').textContent =
-        String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
-    }, 1000);
-
-    setInterval(() => {
-      if (currentStatus === 'pending') {
+    discoverLiveGatewayEndpoint().then(() => {
+      if (uniqueId) {
         checkPaymentStatusNow(false);
       }
-    }, 3500);
+    });
+
+    if (!uniqueId) {
+      document.getElementById('checkout-card').classList.add('hidden');
+      document.getElementById('gateway-hub-card').classList.remove('hidden');
+    } else {
+      renderOrderDetails();
+      checkPaymentStatusNow(false);
+
+      setInterval(() => {
+        if (currentStatus !== 'pending') return;
+        const remaining = expiresAtMs - Date.now();
+        if (remaining <= 0) {
+          showExpiredState();
+          return;
+        }
+        const mins = Math.floor(remaining / 60000);
+        const secs = Math.floor((remaining % 60000) / 1000);
+        document.getElementById('countdown-text').textContent =
+          String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+      }, 1000);
+
+      setInterval(() => {
+        if (currentStatus === 'pending') {
+          checkPaymentStatusNow(false);
+        }
+      }, 3500);
+    }
   </script>
 </body>
 </html>
